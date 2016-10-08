@@ -6,12 +6,20 @@ class Image:
     '''
     Base Image class
     '''
-    def __init__(self, fov, image):
+    def __init__(self, fov, data):
         '''
-        Calls set_fov and set_data from the given input.
+        Creates an image by calling set_fov and set_data from the given input.
+
+        Parameters
+        ----------
+        fov : array_like, shape = (3,)
+            The FOV size, in (X, Y, Z) technically dimension-less, as long as
+            the units match those used by an ROI.
+        data : array_like, shape = (n,m,o)
+            The data for the image to be initialized with.
         '''
         self.set_fov(fov)
-        self.set_data(image)
+        self.set_data(data)
 
     def set_data(self, data):
         '''
@@ -19,6 +27,11 @@ class Image:
         used to change the data after the image has been initialized.  This
         does not modify the FOV size.  The voxel dimension size is adjusted
         accordingly.
+
+        Parameters
+        ----------
+        data : array_like, shape = (n,m,o)
+            The data for the image to be initialized with.
         '''
         if data is None:
             raise ValueError('Image not provided')
@@ -31,9 +44,13 @@ class Image:
 
     def set_fov(self, fov):
         '''
-        Sets the size of the FOV as a (3,) float numpy array.  Anything
-        accepted by numpy.asarray is allowed.  Unnecessary dimensions are
-        squeezed down so that self.fov.shape == (3,).  If the
+        Sets the size of the FOV as a (3,) float numpy array.
+
+        Parameters
+        ----------
+        fov : array_like, shape = (3,)
+            The FOV size, in (X, Y, Z) technically dimension-less, as long as
+            the units match those used by an ROI.
         '''
         self.fov = np.asarray(fov).squeeze()
         if self.fov.shape != (3,):
