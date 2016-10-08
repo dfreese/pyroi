@@ -14,9 +14,8 @@ class ROI:
         '''
         The main public function that checks the mask_cache first before calling
         the ROIs _get_mask function.  The _get_mask function should be
-        overridden by the subclasses of ROIs.  The cache assumes an image with
-        the same fov and vsize should have the same mask.  If the image center
-        is no longer assumed to be at zero, the center will need to be added.
+        overridden by the subclasses of ROIs.  The cache uses Image.get_key()
+        to get key uniquely identifying that images mesh.
 
         Parameters
         ----------
@@ -29,7 +28,7 @@ class ROI:
             A 3d ndarray of floats that indicating the contribution of that
             voxel to the ROI.
         '''
-        key = (tuple(image.fov), tuple(image.vsize))
+        key = image.get_key()
         if key not in self.mask_cache:
             self.mask_cache[key] = self._get_mask(image)
         return self.mask_cache[key]
