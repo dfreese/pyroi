@@ -35,7 +35,7 @@ class Image:
         res : tuple of tuples, shape = ((3,),(3,),(3,))
             A tuple uniquely identifying the image grid
         '''
-        return (tuple(image.fov), tuple(image.vsize), tuple(image.center))
+        return (tuple(self.fov), tuple(self.vsize), tuple(self.center))
 
     def set_data(self, data):
         '''
@@ -74,7 +74,7 @@ class Image:
         self.fov = np.asarray(fov).squeeze()
         if self.fov.shape != (3,):
             raise ValueError('FOV provided not the correct size')
-        self.center = np.asarray(fov).squeeze()
+        self.center = np.asarray(center).squeeze()
         if self.center.shape != (3,):
             raise ValueError('FOV center provided not the correct size')
         # Use self.x as an indicator that self.init_grid() has already been
