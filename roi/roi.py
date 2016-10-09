@@ -183,6 +183,21 @@ class ROI:
         '''
         return (image.data * self.get_mask(image)).sum()
 
+    def __eq__(self, other):
+        '''
+        Class instances are considered equal.  This function should be
+        overridden by subclasses with more specific properties.
+        '''
+        if isinstance(other, self.__class__):
+            return True
+        return NotImplemented
+
+    def __ne__(self, other):
+        '''
+        Merely not the __eq__ function.  This should be consistent across all
+        subclasses.
+        '''
+        return not self.__eq__(other)
 
 class RectROI(ROI):
     '''
@@ -267,6 +282,15 @@ class RectROI(ROI):
                 (np.abs(image.Y - self.center[1]) <= self.size[1] / 2.0) &
                 (np.abs(image.Z - self.center[2]) <= self.size[2] / 2.0)
                 ).astype(float)
+
+    def __eq__(self, other):
+        '''
+        Classes are considered equal if the center and size are equal.
+        '''
+        if isinstance(other, self.__class__):
+            return ((other.size == self.size).all() and
+                    (other.center == self.center).all())
+        return NotImplemented
 
 class CylROI(ROI):
     '''
@@ -369,6 +393,16 @@ class CylROI(ROI):
                 (np.abs(image.Z - self.center[2]) <= self.height / 2.0)
                 ).astype(float)
 
+    def __eq__(self, other):
+        '''
+        Classes are considered equal if the center, height, and radius are
+        equal.
+        '''
+        if isinstance(other, self.__class__):
+            return ((other.radius == self.radius) and
+                    (other.height == self.height) and
+                    (other.center == self.center).all())
+        return NotImplemented
 
 class SphereROI(ROI):
     '''
@@ -448,3 +482,11 @@ class SphereROI(ROI):
                         (image.Y - self.center[1]) ** 2 +
                         (image.Z - self.center[2]) ** 2) <= self.radius
                 ).astype(float)
+
+    def __eq__(self, other):
+        '''
+        Classes are considered equal if the center and radius are equal.
+        '''
+        if isinstance(other, self.__class__):
+            return ((other.radius == self.radius) and
+                    (other.center == self.center).all())
