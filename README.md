@@ -20,7 +20,7 @@ img = roi.Image((64,64,10), np.ones((128, 128, 20))
 The combination of the two can then be used to calculate max, min, median, mean, var, std, and sum by doing the following
 
 ```
-total = roi.sum(img)
+total = sphere_roi.sum(img)
 ```
 
 ## Storing ROIs
