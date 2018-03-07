@@ -39,3 +39,13 @@ This is done by calling the following:
 ```
 cyl_roi = roi.json_to_roi('cyl_roi.json')
 ```
+
+The json string can also be passed directly:
+```
+cyl_roi = roi.json_to_roi('''{
+    "type": "cylinder",
+    "center": [1, 8, 0],
+    "radius": 13,
+    "height": 30
+}''')
+```
