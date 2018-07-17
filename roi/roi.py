@@ -198,8 +198,8 @@ class ROI:
         res : numpy.scalar
             A numpy scalar indicating the statistic requested
         '''
-        minimum = self.min()
-        maximum = self.max()
+        minimum = self.min(image)
+        maximum = self.max(image)
         return (maximum - minimum) / (maximum + minimum)
 
     def __eq__(self, other):
