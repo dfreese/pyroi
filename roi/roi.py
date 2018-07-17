@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import numpy as np
-from image import Image
+from .image import Image
 
 class ROI:
     '''

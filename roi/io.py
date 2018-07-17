@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import json
-from roi import (RectROI, CylROI, SphereROI)
+from .roi import (RectROI, CylROI, SphereROI)
 
 def json_to_roi(string):
     '''
