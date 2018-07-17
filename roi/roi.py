@@ -183,6 +183,25 @@ class ROI:
         '''
         return (image.data * self.get_mask(image)).sum()
 
+    def int_uniformity(self, image):
+        '''
+        Returns the integral uniformity for all voxel values with a non-zero
+        weight.
+
+        Parameters
+        ----------
+        image : roi.Image
+            The image for which the ROI calculate the value.
+
+        Returns
+        -------
+        res : numpy.scalar
+            A numpy scalar indicating the statistic requested
+        '''
+        minimum = self.min()
+        maximum = self.max()
+        return (maximum - minimum) / (maximum + minimum)
+
     def __eq__(self, other):
         '''
         Class instances are considered equal.  This function should be
